@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody player_rb;
+
+    public bool game_over = false;
     public float jump_force = 10.0f;
     public float gravity_modifier = 1.5f;
     public bool is_grounded = true;
@@ -28,6 +30,11 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        is_grounded = true;
+        if(other.gameObject.CompareTag("Ground")) {
+            is_grounded = true;
+        } else if (other.gameObject.CompareTag("Obsticle")) {
+            game_over = true;
+            Debug.Log("Game Over");
+        }
     }
 }
